@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Hash;
 
 class ForgetPasswordController extends Controller
 {
-    public function forgetPass()
+    public function showForgetPass()
     {
-        return \view('auth.forgot-pass');
+        return \view('forgot-pass');
     }
 
     public function doForgetPass(Request $request)
@@ -31,18 +31,16 @@ class ForgetPasswordController extends Controller
             $u[0]->random_key = $hash;
             $u[0]->key_time = Carbon::now();
             $u[0]->save();
-            $mess = 'Chúng tôi đã gửi một mail đến email ' . $request->email . ' vui lòng vào mail nhấn vào link đính kèm để tiến hành đổi mật khẩu.';
 
-            return redirect('notify')->with('ok', $mess);
-
+            return redirect()->route('verify')->with('mes', 'forgot');
         } else {
-            return \redirect()->back()->withErrors(['mes' => 'Email không tồn tại, hoặc chưa đăng ký.']);
+            return \redirect()->back()->withErrors(['mes' => 'Email không tồn tại, hoặc chưa đăng ký.'])
+                ->withInput($request->only('email'));
         }
     }
 
     public function doConfirmPassword($email, $key)
     {
-
         $u = User::select('id', 'email', 'random_key', 'key_time', 'active')
             ->where('email', '=', $email)
             ->where('active', '=', '1')->get();
@@ -53,7 +51,7 @@ class ForgetPasswordController extends Controller
             $now = Carbon::now();
             if ($now->lt($kt) == true) {
 
-                return \view('auth.reset-pass')->with([
+                return view('reset-pass')->with([
                     'email' => $email,
                     'key' => $key,
                 ]);
@@ -69,7 +67,7 @@ class ForgetPasswordController extends Controller
     {
         $request->validate([
             'pass' => 'required|min:8',
-            're-pass' => 'required|same:pass',
+            'repass' => 'required|same:pass',
         ]);
         $u = User::select('id', 'email', 'random_key', 'key_time', 'active')
             ->where('email', '=', $email)

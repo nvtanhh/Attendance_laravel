@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ActiveAcount;
+use App\Mail\ActiveAccount;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -19,12 +18,13 @@ class RegisterController extends Controller
     {
         return view('signup');
     }
-    public function sendEmail(Request $request,User $user){
+    public function sendEmail(Request $request, User $user)
+    {
         $key = openssl_random_pseudo_bytes(200);
         $time = now();
         $hash = md5($key . $time);
 
-        Mail::to($request->input('email'))->send(new ActiveAcount($request->input('email'), $hash));
+        Mail::to($request->input('email'))->send(new ActiveAccount($request->input('email'), $hash, $user->name));
 
         $user->random_key = $hash;
         $user->key_time = Carbon::now();
@@ -36,32 +36,34 @@ class RegisterController extends Controller
 
         $request->validate([
             'email' => 'required|email',
+            'name' => 'required',
             'pass' => 'required|min:8',
             'repass' => 'required|same:pass',
         ], $this->messages());
-        $user =User::where('email', '=',$request->email)->first();
+        $user = User::where('email', '=', $request->email)->first();
         // email không tồn tại gửi email mơi
-        if($user==null){
+        if ($user == null) {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password'=>Hash::make($request->pass),
+                'password' => Hash::make($request->pass),
             ]);
-            $this->sendEmail($request,$user);
+            $this->sendEmail($request, $user);
             $user->save();
-            return redirect('login')->with('ok', 'Bạn đăng ký thành công vui lòng check Email để kích hoạt tài khoản');
-        }else{
+            return redirect('verify', ['email' => $user->email]);
+        } else {
             // đã tồn tại active 1 thông báo lỗi
-            if($user->active==1){
-                return redirect()->back()->withErrors(['r_email'=>'Email đã tồn tại!']);
-            }else{
+            if ($user->active == 1) {
+                return redirect()->back()
+                    ->withInput($request->only('email', 'name'))
+                    ->withErrors(['email' => 'Email đã tồn tại!']);
+            } else {
                 // email tồn tại active = 0 gửi lại email
-                $this->sendEmail($request,$user);
+                $this->sendEmail($request, $user);
                 $user->update();
-                return redirect('login')->with('ok', 'Bạn đăng ký thành công vui lòng check Email để kích hoạt tài khoản');
+                return redirect('verify');
             }
         }
-
     }
 
     public function register()
@@ -84,7 +86,6 @@ class RegisterController extends Controller
             //			if ( $now->lt( $kt ) == true ) {
             $u[0]->active = 1;
             $u[0]->random_key = '';
-            $u[0]->groups()->attach(4);
             $u[0]->save();
             //			Session::put( 'ok', 123 );
 
@@ -96,7 +97,7 @@ class RegisterController extends Controller
             return redirect('login')->withErrors(['mes' => 'Xác nhận email không thành công! Email hoặc mã xác thực không đúng. ']);
         }
     }
-    
+
 
     private function messages()
     {
@@ -104,6 +105,7 @@ class RegisterController extends Controller
             'email.required' => 'Bạn cần phải nhập Email.',
             'email.email' => 'Định dạng Email bị sai.',
             'email.unique' => 'Email đã tồn tại',
+            'name.required' => 'Bạn cần phải nhập name',
             'pass.required' => 'Bạn cần phải nhập Password.',
             'pass.min' => 'Password phải nhiều hơn 8 ký tự.',
             'pass.required' => 'Bạn cần nhập Repassword',

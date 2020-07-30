@@ -1,0 +1,29 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    font-family: Poppins-Regular, sans-serif;
+}
+a{
+     cursor: pointer;
+}
+.img {
+    display: flex;
+    border-bottom: 2px solid #707070 ;
+}
+.page{
+    width: 100%;
+    display: block;
+}
+
+.card-verify {
+    margin-top: 5%;
+    border-radius: 10px;
+    width: 30%;
+    height: auto;
+    border: none;
+}

@@ -1,0 +1,89 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: auto;
+    font-family: Poppins-Regular, sans-serif;
+}
+
+a {
+    cursor: pointer;
+}
+
+.img {
+    display: flex;
+    border-bottom: 1.5px solid #707070;
+}
+
+.page {
+    width: 100%;
+    display: block;
+}
+
+.card-verify {
+    margin-top: 5%;
+    border-radius: 10px;
+    width: 30%;
+    height: auto;
+    border: none;
+}
+
+.form-popup {
+    display: none;
+    position: fixed;
+    bottom: 50%;
+    margin-bottom: -100px;
+    right: 50%;
+    margin-right: -200px;
+    border: 1px solid #000;
+    z-index: 9;
+    border-radius: 10px;
+}
+
+/* Add styles to the form container */
+.form-container {
+    max-width: 400px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+/* Full-width input fields */
+.form-container input[type=text] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 22px 0;
+    border: none;
+    border-bottom: 1.5px solid #8B16FF;
+    background: white;
+
+}
+
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+    background-color: white;
+    color: #8B16FF;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    color: black;
+}
+.form-container input[type=text]:focus {
+    /*background-color: #ddd;*/
+    outline: none;
+
+}

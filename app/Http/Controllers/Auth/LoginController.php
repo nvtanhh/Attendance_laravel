@@ -14,7 +14,7 @@ class LoginController extends Controller
     {
         //xóa session group cũ
         Session::forget('auth');
-        return view('pages.auth');
+        return view('login');
     }
     public function doLogin(Request $r)
     {
@@ -29,7 +29,7 @@ class LoginController extends Controller
             ->get();
         if (count($users) == 1) {
             $u = $users[0];
-            if ($u->email == $r->get('email') && Hash::check($r->get('password'), $u->password)) {
+            if ($u->email == $r->get('email') && Hash::check($r->get('pass'), $u->password)) {
                 $u = User::select('id')
                     ->where('id', '=', $u->id)
                     ->where('active', '=', '1')->first();
