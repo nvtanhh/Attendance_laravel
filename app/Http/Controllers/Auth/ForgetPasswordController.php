@@ -19,9 +19,14 @@ class ForgetPasswordController extends Controller
 
     public function doForgetPass(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+        ], $this->messages());
+
         $u = User::select('id', 'email')
             ->where('email', '=', $request->email)
             ->where('active', '=', '1')->get();
+
         if (count($u) == 1) {
 
             $key = openssl_random_pseudo_bytes(200);
@@ -68,7 +73,7 @@ class ForgetPasswordController extends Controller
         $request->validate([
             'pass' => 'required|min:8',
             'repass' => 'required|same:pass',
-        ]);
+        ],$this->messages());
         $u = User::select('id', 'email', 'random_key', 'key_time', 'active')
             ->where('email', '=', $email)
             ->where('active', '=', '1')->get();
@@ -78,5 +83,16 @@ class ForgetPasswordController extends Controller
             $u[0]->save();
             return redirect('login')->with('ok', 'Password đã được thay đổi');
         }
+    }
+    private function messages()
+    {
+        return [
+            'email.required' => 'Bạn cần phải nhập Email.',
+            'email.email' => 'Định dạng Email bị sai.',
+            'pass.required' => 'Bạn cần phải nhập Password.',
+            'pass.min' => 'Password phải nhiều hơn 8 ký tự.',
+            'repass.required' => 'Bạn cần phải nhập Password.',
+            'repass.same' => 'Repassword phải giống Password.',
+        ];
     }
 }
