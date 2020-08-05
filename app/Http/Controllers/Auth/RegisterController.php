@@ -56,7 +56,7 @@ class RegisterController extends Controller
             if ($user->active == 1) {
                 return redirect()->back()
                     ->withInput($request->only('email', 'name'))
-                    ->withErrors(['email' => 'Email đã tồn tại!']);
+                    ->withErrors(['email' => 'Email has already existed.']);
             } else {
                 // email tồn tại active = 0 gửi lại email
                 $this->sendEmail($request, $user);
@@ -89,12 +89,9 @@ class RegisterController extends Controller
             $u[0]->save();
             //			Session::put( 'ok', 123 );
 
-            return redirect('login')->with('ok', 'Xác nhận email thành công! Bạn có thể đăng nhập.');
-            //			} else {
-            //				return \view('auth.login')->with( 'ok', 'Xác nhận email không thành công! Thời gian xác thực quá hạn.' );
-            //			}
+            return redirect('login')->with('ok', 'Verify successful! You are able to login!');
         } else {
-            return redirect('login')->withErrors(['mes' => 'Xác nhận email không thành công! Email hoặc mã xác thực không đúng. ']);
+            return redirect('login')->withErrors(['mes' => 'ERROR! Email or verify code is not correct.']);
         }
     }
 
@@ -102,14 +99,14 @@ class RegisterController extends Controller
     private function messages()
     {
         return [
-            'email.required' => 'Bạn cần phải nhập Email.',
-            'email.email' => 'Định dạng Email bị sai.',
-            'email.unique' => 'Email đã tồn tại',
-            'name.required' => 'Bạn cần phải nhập name',
-            'pass.required' => 'Bạn cần phải nhập Password.',
-            'pass.min' => 'Password phải nhiều hơn 8 ký tự.',
-            'pass.required' => 'Bạn cần nhập Repassword',
-            'repass.same' => 'RePassword không trùng với password',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Wrong email format.',
+            'email.unique' => 'Email is available',
+            'name.required' => 'Name is required',
+            'pass.required' => 'Password is required',
+            'pass.min' => 'Password is required at least 8 characters',
+            'pass.required' => 'Repassword is required',
+            'repass.same' => 'Password and repassword do not match',
         ];
     }
 }

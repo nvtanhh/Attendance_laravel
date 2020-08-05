@@ -55,7 +55,7 @@ class LoginController extends Controller
                 $this->attemptsLoginFailed();
                 return redirect()->back()
                     ->withInput($r->only('email'))
-                    ->withErrors(['mes' => 'Bạn đã nhập sai Email hoặc Password']);
+                    ->withErrors(['mes' => 'Your Email or Password is incorrect']);
             }
         } else {
             return redirect()->route('login')->withErrors(['lock' => true]);
