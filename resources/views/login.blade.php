@@ -152,7 +152,7 @@
     </div>
 
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script src="{{ asset('fontawesome/js/all.js')}}"></script>
+{{--    <script src="{{ asset('fontawesome/js/all.js')}}"></script>--}}
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="{{ asset('scripts/parsley.min.js')}}"></script>
     <script src="js/main.js"></script>
@@ -168,7 +168,7 @@
         });
 
         // validate input
-        $(function () {  
+        $(function () {
           $('#form').parsley().on('field:validated', function() {
             var ok = $('.parsley-error').length === 0;
             $('.bs-callout-info').toggleClass('hidden', !ok);
@@ -178,12 +178,12 @@
             return true; // Don't submit form for this demo
           });
         });
-        
+
     </script>
 
     @if(Session::has('lockLogin'))
     <script type="text/javascript">
-        // countdown seconds  
+        // countdown seconds
     var timeleft = parseInt($('#countdown').text());
 
     if(timeleft<=0){

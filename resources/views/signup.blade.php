@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}" />
 
     <link rel="stylesheet" type="text/css" href="{{ asset('fontawesome/css/all.css')}}" />
-    <script src="{{ asset('fontawesome/js/all.js')}}"></script>
+{{--    <script src="{{ asset('fontawesome/js/all.js')}}"></script>--}}
 
 
 </head>
@@ -148,12 +148,12 @@
 
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    
+
     <script src="{{ asset('scripts/parsley.min.js')}}"></script>
 
     <script>
         // validate input
-        $(function () {  
+        $(function () {
           $('#form').parsley().on('field:validated', function() {
             var ok = $('.parsley-error').length === 0;
             $('.bs-callout-info').toggleClass('hidden', !ok);
