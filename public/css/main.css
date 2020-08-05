@@ -34,6 +34,8 @@ body,
 html {
     height: 100%;
     font-family: Poppins-Regular, sans-serif;
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 /*---------------------------------------------*/
@@ -47,12 +49,6 @@ a {
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
-}
-
-body {
-    overflow: auto;
-    overflow-x: hidden;
-    font-family: Poppins-Regular, sans-serif !important;
 }
 
 a:focus {
@@ -250,34 +246,6 @@ iframe {
     z-index: 100;
 }
 
-.btn-primary {
-    background-color: #880ee6;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    padding-left: 25px;
-    padding-right: 25px;
-    border-radius: 25px;
-    border-color: #880ee6;
-}
-
-.btn-primary:disabled,
-.btn-primary[disabled]{
-    background-color: #666 !important;
-    border-color: #666 !important;
-}
-
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open > .dropdown-toggle.btn-primary {
-    color: #fff;
-    background-color: #2f2e41;
-    border-color: #2f2e41; /*set the color you want here*/
-}
-
 .login100-more::before {
     content: "";
     display: block;
@@ -313,26 +281,29 @@ iframe {
 .login100-form-title {
     width: 100%;
     font-family: Poppins-Medium;
-    font-size: 38px;
     color: #333333;
     line-height: 1.2;
     text-align: left;
     top: 0;
+    font-size: 45px;
+    font-weight: bold;
+    position: absolute;
+    margin-top: 75px;
 }
 
 /*------------------------------------------------------------------
 [ Input ]*/
 
 .wrap-input100 {
-    width: 100%;
     position: relative;
     border-bottom: 1.5px solid #880ee6;
-    /*padding-top: 25px;*/
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
     margin: auto;
+    width: 90%;
+    padding: 5px 0px;
 }
 
 .label-input100 {
@@ -401,7 +372,18 @@ iframe {
     display: none;
 }
 
+.input-checkbox100-circle {
+    display: none;
+}
+
 .label-checkbox100 {
+    margin: 0;
+    display: block;
+    position: relative;
+    padding-left: 26px;
+    cursor: pointer;
+}
+.label-checkbox100-circle {
     margin: 0;
     display: block;
     position: relative;
@@ -502,6 +484,27 @@ iframe {
     line-height: 1.2;
 }
 
+.btn-primary {
+    background-color: #880ee6;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 25px;
+    border-color: #880ee6;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #2f2e41;
+    border-color: #2f2e41; /*set the color you want here*/
+}
+
 .wrap-login100-form-btn:hover .login100-form-bgbtn {
     /*bottom: 0;*/
 }
@@ -594,87 +597,157 @@ iframe {
     transform: translateY(50%);
     right: 5px;
 }
+/*//////////////////////////////////////////////////////////////////
+[ Circle ]*/
+.circle-1 {
+    display: block;
+    position: absolute;
+    right: -3%;
+    top: 10%;
+    border-radius: 50%;
+    background-color: #8b16ff;
+    z-index: 1000;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 12px 40px 0 rgba(0, 0, 0, 0.19);
+    height: 90px;
+    width: 90px;
+}
+
+.circle-2 {
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: absolute;
+    right: 25%;
+    top: 14%;
+    border-radius: 50%;
+    background-color: #8b16ff;
+    z-index: 1000;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 12px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.circle-3 {
+    display: block;
+    position: absolute;
+    left: -5%;
+    bottom: 10%;
+    border-radius: 50%;
+    background-color: #952bff;
+    z-index: 10;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 12px 40px 0 rgba(0, 0, 0, 0.19);
+    height: 90px;
+    width: 90px;
+}
+
+.circle-4 {
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: absolute;
+    left: 25%;
+    bottom: 13%;
+    border-radius: 50%;
+    background-color: #952bff;
+    z-index: 10;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 12px 40px 0 rgba(0, 0, 0, 0.19);
+}
 
 /*//////////////////////////////////////////////////////////////////
+[ ICON ]*/
+.icon {
+    color: #8b16ff;
+    padding-right: 8px;
+}
+/*//////////////////////////////////////////////////////////////////
+[ BOX ]*/
+.box {
+    border: 0.5px solid white;
+    min-height: auto;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 12px 40px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    border-radius: 7px;
+    padding: 2.5rem 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact100-form-checkbox-login {
+    position: absolute;
+    text-align: right;
+    bottom: 0;
+    right: 10%;
+    margin-bottom: 9%;
+}
+
+/*==================================================================
+[ title forgot]*/
+.login100-form-title-forgot {
+    width: 50%;
+    font-size: 45px;
+    font-weight: bold;
+    color: #333333;
+    line-height: 1.2;
+    text-align: left;
+    top: 0;
+    position: absolute;
+    /* margin-top: 75px; */
+}
+/*//////////////////////////////////////////////////////////////////
 [ Responsive ]*/
+/* 
+@media only screen and (max-width: 576px) {
+  .login100-more {
+    display: none;
+  }
+  .login100-form-title {
+    font-size: 30px;
+  }
+  .login100-form-title-forgot {
+    font-size: 30px;
+  }
+} */
+/* Extra small devices (phones, 600px and down) */
+/* @media only screen and (max-width: 600px) {
+  .login100-more{
+    display: none;
+  }
+  .login100-form-title-forgot{
+    font-size: 30px;
+  }
+}  */
 
-@media (max-width: 576px) {
-    .wrap-login100 {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    .container-login100 {
-        overflow: auto;
-    }
-    @media only screen and (max-width: 600px) {
-        .modal-title {
-            font-size: 30px;
-        }
-    }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* @media only screen and (min-width: 600px) {
+  .login100-form-title-forgot{
+    font-size: 38px;
+  }
+} */
 
-    /* Small devices (portrait tablets and large phones, 600px and up) */
-    @media only screen and (min-width: 600px) {
-        .modal-title {
-            font-size: 80px;
-        }
-        .container-login100 {
-            overflow: auto;
-        }
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .login100-form-title-forgot {
+        font-size: 45px;
     }
+}
 
-    /* Medium devices (landscape tablets, 768px and up) */
-    @media only screen and (min-width: 768px) {
-        .wrap-login100 {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        .modal-title {
-            font-size: 30px;
-        }
-        .container-login100 {
-            overflow: auto;
-        }
+@media only screen and (max-width: 768px) {
+    .login100-more {
+        display: none;
     }
-    @media only screen and (max-width: 768px) {
-        .wrap-login100 {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        .modal-title {
-            font-size: 30px;
-        }
-        .container-login100 {
-            overflow: auto;
-        }
-    }
+}
 
-    /* Large devices (laptops/desktops, 992px and up) */
-    @media only screen and (min-width: 992px) {
-        .wrap-login100 {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        .modal-title {
-            font-size: 30px;
-        }
-        .container-login100 {
-            overflow: auto;
-        }
-    }
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+}
 
-    /* Extra large devices (large laptops and desktops, 1200px and up) */
-    @media only screen and (min-width: 1200px) {
-        .wrap-login100 {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        .modal-title {
-            font-size: 30px;
-        }
-        .container-login100 {
-            overflow: auto;
-        }
-    }
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }
 
 .box {
@@ -689,7 +762,7 @@ iframe {
     display: flex;
     flex-direction: column;
     justify-self: center;
-    
+    align-items: flex-start;
 }
 
 .wrap-input100 {
@@ -709,8 +782,33 @@ small {
 }
 
 .box small {
-  text-align:left;
-  margin-left: 5%;
+    text-align: left;
+    margin-left: 5%;
 }
 
-
+.label-checkbox100-circle::before {
+    content: "\f00c";
+    font-family: FontAwesome;
+    font-size: 13px;
+    color: transparent;
+    border: 1.5px #880ee6 solid;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background: white;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}

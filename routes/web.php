@@ -31,6 +31,7 @@ Route::get('verify', function () {
 
 Route::get('login', 'Auth\LoginController@showLogin')->name('login');
 Route::post('login', 'Auth\LoginController@doLogin')->name('login');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::post('register', 'Auth\RegisterController@doRegister')->name('register');
 Route::get('register', 'Auth\RegisterController@showRegister')->name('register');

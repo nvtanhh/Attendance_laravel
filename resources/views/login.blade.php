@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/util.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}" />
-    <link rel="stylesheet" href="{{ asset('css/login.css')}}" />
 
     <link rel="stylesheet" type="text/css" href="{{ asset('fontawesome/css/all.css')}}" />
 
@@ -23,9 +22,10 @@
 <body style="">
     <div class="limiter">
         <div class="container-login100">
-            <div class="login100-more col-md-8 col-sm-0" style="background-image: url('images/Rectangle 5.png');">
-                <div class="img-fluid col-md-9 pt-3">
-                    <img src="images/Group%2022.png" class="w-25" />
+            <div class="col-md-6 col-lg-7 col-xl-8 login100-more"
+                style="background-image: url('{{ asset('images/Rectangle 5.png')}}');">
+                <div class="img-fluid col-md-9 pt-5">
+                    <img src="{{ asset('images/logo_white.png')}}" class="w-25" />
                 </div>
                 <div class="modal-title col-md-9">
                     <h1 class="text-white">
@@ -39,10 +39,10 @@
                     </h6>
                 </div>
                 <div class="img-fluid col-md-9 col-sm-6 mx-auto">
-                    <img src="images/Group%2032.png" class="w-100 h-50 m-t-100" />
+                    <img src="{{asset('images/Group%2032.png')}}" class="w-100 h-50 m-t-100" />
                 </div>
             </div>
-            <div class="wrap-login100 p-t-72 p-b-80 col-md-4 col-sm-12">
+            <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 wrap-login100">
                 <div class="title">
                     <span class="login100-form-title p-l-70 p-r-50 p-b-89">
                         Login
@@ -92,15 +92,15 @@
 
                         <div class="d-flex justify-content-between mt-4">
                             <div class="">
-                                <input class="input-checkbox100" id="ckb1" type="radio" name="remember-me" />
-                                <label class="label-checkbox100" for="ckb1">
+                                <input class="input-checkbox100-circle" id="ckb1" type="radio" name="remember-me" />
+                                <label class="label-checkbox100-circle" for="ckb1">
                                     <span class="txt1">
                                         Remember me
                                     </span>
                                 </label>
                             </div>
 
-                            <a href="#" class="txt2 hov1">
+                            <a href="{{route('forgotpass') }}" class="txt2 hov1">
                                 Forgot password?
                             </a>
                         </div>
@@ -158,6 +158,7 @@
     <script src="js/main.js"></script>
 
     <script type="text/javascript">
+        // validate recaptcha
         $("#form").submit(function(event) {
         var recaptcha = $("#g-recaptcha-response").val();
         if (recaptcha === "") {
@@ -166,7 +167,8 @@
         }
         });
 
-        $(function () {
+        // validate input
+        $(function () {  
           $('#form').parsley().on('field:validated', function() {
             var ok = $('.parsley-error').length === 0;
             $('.bs-callout-info').toggleClass('hidden', !ok);
@@ -181,8 +183,7 @@
 
     @if(Session::has('lockLogin'))
     <script type="text/javascript">
-        // countdown seconds
-      
+        // countdown seconds  
     var timeleft = parseInt($('#countdown').text());
 
     if(timeleft<=0){

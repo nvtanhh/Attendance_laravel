@@ -62,7 +62,13 @@ class LoginController extends Controller
         }
     }
 
-    
+    public function logout()
+    {
+        session()->forget('auth');
+        return redirect('/');
+    }
+
+
 
     private function attemptsLoginFailed()
     {

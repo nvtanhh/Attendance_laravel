@@ -20,10 +20,10 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="wrap col-12" style="background-image: url('images/background.png');">
-                <div class="img">
+            <div class="wrap col-12" style="background-image: url('{{ asset('images/background.png')}}');">
+                <div class="img mt-3">
                     <div class="w-50 pt-3 pl-5 border-0">
-                        <img src="images/Group%2022.png" class="w-25" />
+                        <img src="{{ asset('images/logo_white.png')}}" class="w-25" />
                     </div>
                 </div>
                 <div class="card card-verify mx-auto" style="width: 500px;">
