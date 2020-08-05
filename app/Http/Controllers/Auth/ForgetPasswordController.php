@@ -41,7 +41,7 @@ class ForgetPasswordController extends Controller
             return redirect()->route('verify')->with('mes', 'forgot');
         } else {
             // thông báo lỗi email khong ton tại
-            return \redirect()->back()->withErrors(['mes' => 'Email không tồn tại, hoặc chưa đăng ký.'])
+            return \redirect()->back()->withErrors(['mes' => "Email doesn't exist"])
                 ->withInput($request->only('email'));
         }
     }
@@ -66,11 +66,11 @@ class ForgetPasswordController extends Controller
                 ]);
             } else {
                 // trả về view với htoong báo email hết hạn
-                return redirect('notify')->withErrors('mes', 'Mail đã hết hạn sử dụng');
+                return redirect('notify')->withErrors('mes', 'Email is expired');
             }
         } else {
             // trả về view với thông báo link này đã đc sử dụng
-            return redirect('notify')->withErrors(['mes' => 'Đường dẫn này chỉ được sử dụng được một lần']);
+            return redirect('notify')->withErrors(['mes' => 'This link is only use once!']);
         }
     }
 
@@ -80,7 +80,7 @@ class ForgetPasswordController extends Controller
         $request->validate([
             'pass' => 'required|min:8',
             'repass' => 'required|same:pass',
-        ],$this->messages());
+        ], $this->messages());
         // get user từ db ra để so sánh
         $u = User::select('id', 'email', 'random_key', 'key_time', 'active')
             ->where('email', '=', $email)
@@ -91,19 +91,19 @@ class ForgetPasswordController extends Controller
             $u[0]->password = Hash::make($request->pass);
             $u[0]->random_key = '';
             $u[0]->save();
-            return redirect('login')->with('ok', 'Password đã được thay đổi');
+            return redirect('login')->with('ok', 'Password was changed!');
         }
     }
     // hàm trả về các lỗi khi validate
     private function messages()
     {
         return [
-            'email.required' => 'Bạn cần phải nhập Email.',
-            'email.email' => 'Định dạng Email bị sai.',
-            'pass.required' => 'Bạn cần phải nhập Password.',
-            'pass.min' => 'Password phải nhiều hơn 8 ký tự.',
-            'repass.required' => 'Bạn cần phải nhập Password.',
-            'repass.same' => 'Repassword phải giống Password.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Wrong email format.',
+            'pass.required' => 'Password is required.',
+            'pass.min' => 'Password is required at least 8 characters',
+            'repass.required' => 'RePassword is required.',
+            'repass.same' => 'Password and repassword do not match.',
         ];
     }
 }
