@@ -33,7 +33,7 @@ class ForgetPasswordController extends Controller
             $key = openssl_random_pseudo_bytes(200);
             $time = now();
             $hash = md5($key . $time);
-            Mail::to($request->input('email'))->send(new ForgetPass($request->input('email'), $hash));
+            Mail::to($request->input('email'))->send( new ForgetPass($request->input('email'), $hash));
             $u[0]->random_key = $hash;
             $u[0]->key_time = Carbon::now();
             $u[0]->save();
