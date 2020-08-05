@@ -229,4 +229,6 @@ return [
 
     ],
 
+    'sitekey' => '6Ld5YroZAAAAAN7zk__R1gyZYNvih0ML2dAnUX8o',
+
 ];

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('verify-request');
+    return view('welcome');
 });
 
 Route::get('notify', function () {
