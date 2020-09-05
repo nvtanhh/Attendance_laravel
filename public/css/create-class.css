@@ -2,71 +2,77 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
-
-body {
+  }
+  
+  body {
     overflow: auto;
     font-family: Poppins-Regular, sans-serif;
-}
-
-a {
+  }
+  
+  a {
     cursor: pointer;
-}
-
-.img {
+  }
+  
+  .img {
     display: flex;
     border-bottom: 1.5px solid #707070;
-}
-
-.page {
+  }
+  
+  .page {
     width: 100%;
     display: block;
-}
-
-.card-verify {
+  }
+  
+  .card-verify {
     margin-top: 5%;
     border-radius: 10px;
     width: 30%;
     height: auto;
     border: none;
-}
-
-.form-popup {
+  }
+  
+  .black-bg {
+    width: 100vw;
+    height: 100vw;
+    background-color: black;
+  }
+  
+  .form-popup {
     display: none;
     position: fixed;
     bottom: 50%;
-    margin-bottom: -100px;
+    margin-bottom: -175px;
     right: 50%;
     margin-right: -200px;
-    border: 1px solid #000;
     z-index: 9;
     border-radius: 10px;
-}
-
-/* Add styles to the form container */
-.form-container {
+    -webkit-box-shadow: 5px 10px 42px 0px rgba(135, 135, 135, 1);
+    -moz-box-shadow: 5px 10px 42px 0px rgba(135, 135, 135, 1);
+    box-shadow: 5px 10px 42px 0px rgba(135, 135, 135, 1);
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
     max-width: 400px;
     padding: 10px;
     background-color: white;
     border-radius: 10px;
-}
-
-/* Full-width input fields */
-.form-container input[type=text] {
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type="text"] {
     width: 100%;
     padding: 10px;
     margin: 5px 0 22px 0;
     border: none;
-    border-bottom: 1.5px solid #8B16FF;
+    border-bottom: 1.5px solid #8b16ff;
     background: white;
-
-}
-
-
-/* Set a style for the submit/login button */
-.form-container .btn {
+  }
+  
+  /* Set a style for the submit/login button */
+  .form-container .btn {
     background-color: white;
-    color: #8B16FF;
+    color: #8b16ff;
     padding: 16px 20px;
     border: none;
     cursor: pointer;
@@ -76,14 +82,52 @@ a {
     width: 50%;
     margin-bottom: 10px;
     opacity: 0.8;
-}
-
-/* Add a red background color to the cancel button */
-.form-container .cancel {
+  }
+  
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
     color: black;
-}
-.form-container input[type=text]:focus {
+  }
+  .form-container input[type="text"]:focus {
     /*background-color: #ddd;*/
-    outline: none;
-
-}
+    /* outline: none; */
+  }
+  
+  .class-cart {
+    margin-top: 3rem;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+    -webkit-box-shadow: 5px 10px 42px 0px rgba(135, 135, 135, 1);
+    -moz-box-shadow: 5px 10px 42px 0px rgba(135, 135, 135, 1);
+    box-shadow: 5px 10px 42px 0px rgba(135, 135, 135, 1);
+  }
+  
+  .class-cart .top {
+    padding: 10px 15px;
+    background-color: rgba(143, 21, 255, 0.7);
+    color: #fff;
+  }
+  
+  .class-cart .top .name {
+    font-size: 28px;
+  }
+  
+  .class-cart .top .room{
+      margin-top: 5%;
+  }
+  
+  .class-cart .bot {
+    padding: 10px 15px;
+    color: #000;
+  }
+  
+  .class-cart .bot .description {
+    color: #424242;
+    font-size: 14px;
+  }
+  
+  .class-cart .small {
+    opacity: 0.8;
+  }
+  

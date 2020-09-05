@@ -15,7 +15,21 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('fontawesome/css/all.css')}}" />
 
+    <style>
+        .social {
+            width: 40% !important;
+            border: 0px;
+            color: white !important;
+        }
 
+        .fb {
+            background-color: #3b5998;
+        }
+
+        .gg {
+            background-color: #db3236;
+        }
+    </style>
 
 </head>
 
@@ -129,6 +143,18 @@
                                 <button type="submit" class="btn btn-primary">LOGIN</button>
                             </div>
                         </div>
+                        <!-- alternative login: social network  -->
+                        <p class="text-center mt-3">Or with</p>
+                        <div class="d-flex justify-content-between mt-2">
+                            <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary social fb">
+                                <i class="fab fa-facebook-f mr-1"></i>
+                                FACEBOOK
+                            </a>
+                            <a href="{{ url('/auth/redirect/google') }}" class="btn btn-primary social gg">
+                                <i class="fab fa-google-plus-g mr-1"></i>
+                                GOOGLE
+                            </a>
+                        </div>
                     </div>
 
                 </form>
@@ -152,7 +178,7 @@
     </div>
 
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-{{--    <script src="{{ asset('fontawesome/js/all.js')}}"></script>--}}
+    {{--    <script src="{{ asset('fontawesome/js/all.js')}}"></script>--}}
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script src="{{ asset('scripts/parsley.min.js')}}"></script>
     <script src="js/main.js"></script>

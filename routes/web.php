@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('notify', function () {
@@ -44,3 +44,6 @@ Route::get('confirmforgetpass/{email}/{key}', 'Auth\ForgetPasswordController@doC
 
 
 Route::post('resetpass/{email}/{key}', 'Auth\ForgetPasswordController@resetPass')->name('resetpass');
+
+Route::get('/auth/redirect/{provider}', 'Auth\SocialController@redirect');
+Route::get('/callback/{provider}', 'Auth\SocialController@callback');
