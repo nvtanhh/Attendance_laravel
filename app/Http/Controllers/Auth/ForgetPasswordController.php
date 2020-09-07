@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailForForGetPass;
 use App\Mail\ForgetPass;
 use App\User;
 use Carbon\Carbon;
@@ -29,14 +30,8 @@ class ForgetPasswordController extends Controller
             ->where('active', '=', '1')->get();
 
         if (count($u) == 1) {
-            // tao randomkey và lưu user vs randomkey va thoi gian tao
-            $key = openssl_random_pseudo_bytes(200);
-            $time = now();
-            $hash = md5($key . $time);
-            Mail::to($request->input('email'))->send( new ForgetPass($request->input('email'), $hash));
-            $u[0]->random_key = $hash;
-            $u[0]->key_time = Carbon::now();
-            $u[0]->save();
+            //send email
+            SendEmailForForGetPass::dispatch($u[0])->onQueue('sendemail');
             //trả vè view vưới mesgage da gửi email yêu cầu check mail
             return redirect()->route('verify')->with('mes', 'forgot');
         } else {

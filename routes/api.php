@@ -24,5 +24,7 @@ Route::group([
     ], function() {
         Route::get('logout', 'Api\UserAuthControler@logout');
         Route::get('user', 'Api\UserAuthControler@user');
+        Route::post('uploadimage','Api\UserUploadImage@storeImage');
+        Route::get('getlistclass','Api\StudentAttendance@getListClass');
     });
 });
