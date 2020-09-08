@@ -56,11 +56,9 @@ class HandleStudent extends controller
     public function getPersonId($user)
     {
         $client = new Client("6dc614d04b9c48079b19318c647e733f", "japaneast");
-        $person = $client->personGroup('ai')->person()->create(new Person(null, $user->name));
+        $person = $client->personGroup('ai')->person()->create(new Person(null, $user->studentid));
         $user->person_id = $person->getPersonId();
         $user->save();
-    }
-    public function uploadImageToApi(){
     }
 
 }
