@@ -26,5 +26,8 @@ Route::group([
         Route::get('user', 'Api\UserAuthControler@user');
         Route::post('uploadimage','Api\UserUploadImage@storeImage');
         Route::get('getlistclass','Api\StudentAttendance@getListClass');
+        Route::post('attendance','Api\StudentAttendance@attendance');
+        Route::get('train','Api\StudentAttendance@train');
+        Route::get('sttrain','Api\StudentAttendance@statusTrain');
     });
 });

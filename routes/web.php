@@ -50,5 +50,5 @@ Route::post('createclass','FaceRecognition\HandleGroup@createGroup')->name('crea
 Route::get('group/{id}','FaceRecognition\HandleGroup@showGroup')->name('group');
 
 Route::post('addstudent','FaceRecognition\HandleStudent@createStudent')->name('addstudent');
-Route::get('test','Api\StudentAttendance@upload');
+Route::get('test','Api\StudentAttendance@attendance');
 
