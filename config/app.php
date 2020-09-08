@@ -161,7 +161,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -176,6 +175,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
     ],
 
@@ -228,13 +228,13 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
+
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 
     'sitekey' => '6Ld5YroZAAAAAN7zk__R1gyZYNvih0ML2dAnUX8o',
 
-  
+
 
 ];

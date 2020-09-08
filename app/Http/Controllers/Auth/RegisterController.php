@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmail;
 use App\Mail\ActiveAccount;
 use App\User;
 use Carbon\Carbon;
@@ -18,16 +19,17 @@ class RegisterController extends Controller
     {
         return view('signup');
     }
-    public function sendEmail(Request $request, User $user)
+    public function sendEmail(User $user)
     {
         $key = openssl_random_pseudo_bytes(200);
         $time = now();
         $hash = md5($key . $time);
 
-        Mail::to($request->input('email'))->send(new ActiveAccount($request->input('email'), $hash, $user->name));
+        Mail::to($user->email)->send(new ActiveAccount($user->email, $hash, $user->name));
 
         $user->random_key = $hash;
         $user->key_time = Carbon::now();
+        $user->save();
     }
 
 
@@ -48,9 +50,9 @@ class RegisterController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->pass),
             ]);
-            $this->sendEmail($request, $user);
-            $user->save();
-            return redirect('verify', ['email' => $user->email]);
+//            $this->sendEmail($user);
+            SendEmail::dispatch($user)->onQueue('sendemail');
+            return redirect()->route('verify', ['email' => $user->email]);
         } else {
             // đã tồn tại active 1 thông báo lỗi
             if ($user->active == 1) {
@@ -59,9 +61,11 @@ class RegisterController extends Controller
                     ->withErrors(['email' => 'Email has already existed.']);
             } else {
                 // email tồn tại active = 0 gửi lại email
-                $this->sendEmail($request, $user);
+                $this->sendEmail($user);
                 $user->update();
-                return redirect('verify');
+//                return redirect('verify');
+                SendEmail::dispatch($user)->onQueue('sendemail');
+                return redirect()->route('verify', ['email' => $user->email]);
             }
         }
     }

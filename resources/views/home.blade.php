@@ -79,14 +79,14 @@
 
 
         <!-- If have class  -->
-
         <div class="container">
             <div class="row">
-                <a href="#" class="col-4">
+                @foreach($groups as $gr)
+                <a href="{{route('group',['id'=>$gr->id])}}" class="col-4">
                     <div class="class-cart">
                         <div class="top">
-                            <div class="name">NMCNPM</div>
-                            <div class="mt-n2 ">HD-104</div>
+                            <div class="name">{{$gr->name}}</div>
+                            <div class="mt-n2 ">{{$gr->location->name}}</div>
                             <div class="">0 students</div>
                         </div>
                         <div class="bot">
@@ -94,13 +94,14 @@
                                 Description
                             </small>
                             <div class="description">
-                                Just a Description
+                                {{$gr->description}}
                             </div>
                         </div>
 
                     </div>
                 </a>
 
+                @endforeach
             </div>
         </div>
 
@@ -111,9 +112,9 @@
 
 
 
-
         <div class="form-popup" id="myForm">
-            <form action="" class="form-container">
+            <form action="{{route('createclass')}}" method="POST" class="form-container">
+                @csrf
                 <h3>Create class</h3>
                 <input type="text" placeholder="Class name" name="name" required>
 
@@ -121,12 +122,11 @@
 
                 <input type="text" placeholder="Room" name="room" required>
 
-                <select data-placeholder="Select Location..." class="chosen-select-no-single">
+                <select data-placeholder="Select Location..." class="chosen-select-no-single" name="location">
                     <option value=""></option>
-                    <option value="1">Full-Time</option>
-                    <option value="2">Part-Time</option>
-                    <option value="2">Internship</option>
-                    <option value="2">Freelance</option>
+                    @foreach($locations as $l)
+                    <option value="{{$l->id}}">{{$l->name}}</option>
+                    @endforeach
                 </select>
 
                 <div class="col-12 d-flex float-right bg-white">

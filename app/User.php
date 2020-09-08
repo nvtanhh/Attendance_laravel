@@ -2,12 +2,12 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Jsonable
 {
     use HasApiTokens,Notifiable;
 
@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'studentid','name', 'email'
+        'studentid','name', 'email','password','person_id','is_trained','group','active'
     ];
 
     /**
@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function groups(){
         return $this->belongsToMany(Group::class,'user_group');
     }
+    public function ownergroups(){
+        return $this->hasMany(Group::class);
+    }
+
 }

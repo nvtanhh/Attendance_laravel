@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeControler@index');
 
 Route::get('notify', function () {
     return view('notify');
@@ -47,3 +45,10 @@ Route::post('resetpass/{email}/{key}', 'Auth\ForgetPasswordController@resetPass'
 
 Route::get('/auth/redirect/{provider}', 'Auth\SocialController@redirect');
 Route::get('/callback/{provider}', 'Auth\SocialController@callback');
+
+Route::post('createclass','FaceRecognition\HandleGroup@createGroup')->name('createclass');
+Route::get('group/{id}','FaceRecognition\HandleGroup@showGroup')->name('group');
+
+Route::post('addstudent','FaceRecognition\HandleStudent@createStudent')->name('addstudent');
+Route::get('test','Api\StudentAttendance@upload');
+

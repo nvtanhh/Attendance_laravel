@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    protected $table='locations';
     //
-    public function group(){
-        return $this->belongsTo(Group::class);
+    public function groups(){
+        return $this->hasMany(Group::class);
     }
 }

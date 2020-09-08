@@ -20,6 +20,7 @@
 
 
     <style>
+
         .starter-template {
             padding: 40px 15px;
         }
@@ -101,9 +102,9 @@
         <div class="row">
             <div class="page col-12" id="page">
                 <div class="img col-12 d-flex">
-                    <div class="pt-3 pl-5 col-6"><img src="images/logo.png" class="logo w-25"></div>
+                    <div class="pt-3 pl-5 col-6"><img src="{{ asset('images/logo.png')}}" class="logo w-25"></div>
                     <div class="col-4"></div>
-                    <div class="pt-4 pr-5 col-2 btn"><a><img src="images/Group%202.png" class="icon w-25 float-right"
+                    <div class="pt-4 pr-5 col-2 btn"><a><img src="{{ asset('images/Group%202.png')}}" class="icon w-25 float-right"
                                 onclick="openForm()"></a>
                     </div>
                 </div>
@@ -129,10 +130,10 @@
                                 <div class="cover-img" style="">
                                     <div class="text-white p-4">
                                         <div class="class-name">
-                                            NMCNPM
+                                            {{$group[0]->name}}
                                         </div>
                                         <div class="">
-                                            Mr. Black
+                                            {{$group[0]->myowner->name}}
                                         </div>
                                     </div>
                                 </div>
@@ -173,21 +174,26 @@
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                                 aria-labelledby="nav-profile-tab">
-                                <form class="mt-5">
+                                @if(session('mes')!=null)
+                                    <div>{{session('mes')}}</div>
+                                @endif
+                                <form class="mt-5" action="{{route('addstudent')}}" method="POST" >
+                                    @csrf
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Student ID</label>
-                                            <input type="text" class="form-control" placeholder="Student ID">
+                                            <input type="text" name="studentid" class="form-control" placeholder="Student ID">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputPassword4">Full Name (Optional)</label>
-                                            <input type="text" class="form-control" placeholder="Full Name">
+                                            <input type="text" class="form-control" name="fullname" placeholder="Full Name">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputAddress">Email</label>
-                                        <input type="email" class="form-control" placeholder="example@gmail.com">
+                                        <input type="email" name="email" class="form-control" placeholder="example@gmail.com">
                                     </div>
+                                    <input type="group" name="group" class="dis-none" value="{{$group[0]->id}}">
                                     <div class="d-flex">
                                         <button class="btn btn-primary ml-auto" type="submit">Submit form</button>
                                     </div>
@@ -216,7 +222,7 @@
 
 
     <script>
-        //Initialize Masonry inside Bootstrap 3 Tab component 
+        //Initialize Masonry inside Bootstrap 3 Tab component
 
         (function ($) {
 
@@ -228,7 +234,7 @@
                 });
             });
 
-            //Reinitialize masonry inside each panel after the relative tab link is clicked - 
+            //Reinitialize masonry inside each panel after the relative tab link is clicked -
             $('a[data-toggle=tab]').each(function () {
                 var $this = $(this);
 

@@ -16,10 +16,11 @@ class InviteToClass extends Mailable
      *
      * @return void
      */
-    public function __construct($email,  $name)
+    public function __construct($email, $name, $password)
     {
         $this->email = $email;
-        $this->name = $name;
+        $this->password = $password;
+        $this->name =$name;
     }
 
     /**
@@ -34,6 +35,7 @@ class InviteToClass extends Mailable
             ->subject("INVITE TO CLASS")
             ->with([
                 'email' => $this->email,
+                'name'=>$this->name,
                 'password' => $this->password
             ]);
     }

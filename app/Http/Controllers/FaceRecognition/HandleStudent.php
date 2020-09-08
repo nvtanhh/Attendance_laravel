@@ -4,54 +4,59 @@ namespace App\Http\Controllers\FaceRecognition;
 
 use App\Group;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailForInvite;
 use App\Mail\InviteToClass;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 use Subsan\MicrosoftCognitiveFace\Client;
 use Subsan\MicrosoftCognitiveFace\Entity\Person;
 
-require_once 'vendor/autoload.php';
-
 class HandleStudent extends controller
 {
-    function createStudent($studentid, $name, $email, $groupid)
+    function createStudent(Request $request)
     {
-        // new user
-        $user = new User($studentid, $name, $email);
-        // save user
-        $user->save();
-        // add new row pivot
-        $user->groups()->attach($groupid);
-        // send email invite sutdent
-        $this->sendMail($user);
-        //save personid get from ApiServer
-        $this->getPersonId($user);
-    }
+        $email = $request->email;
+        $groupid = $request->group;
+        $user = User::where('email', $email)->first();
+        if ($user == null) {
+            // new user
+            $user = User::create([
+                'name' => $request->fullname,
+                'studentid' => $request->studentid,
+                'email' => $request->email,
+                'active' => 1
+            ]);
+            // add new row pivot
+            $user->groups()->attach($groupid);
+            // send email invite sutdent
+           SendEmailForInvite::dispatch($user)->onQueue('sendemail');
+            //save personid get from ApiServer
+            $this->getPersonId($user);
 
-    public function sendMail($user)
-    {
-        $password = $this->generateRandomString(8);
-        $user->password = Hash::make($password);
-        $user->save();
-        Mail::to($user->email)->send(new InviteToClass($user->email, $password));
-    }
+            return redirect()->route('group', ['id' => $groupid])->with(['mes' => "add student success"]);
+        } else {
+            // kiem tra user da co trong group hay chua
+            $group = Group::where('id', $groupid)->first();
+            $a = $group->users()->where('id', $user->id)->get();/*->where('id',$user->id)->get();*/
+            // chua co
+            if (sizeof($a) == 0) {
+                // add data in pivot
+                $user->groups()->attach($groupid);
+                return redirect()->route('group', ['id' => $groupid])->with(['mes' => "add student success"]);
+            } else {
+                return redirect()->route('group', ['id' => $groupid])->with(['mes' => "students already exist in the group"]);
+            }
 
-    function generateRandomString($length = 8)
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
-        return $randomString;
+
     }
 
-    public function getPersonId( $user)
+    public function getPersonId($user)
     {
-        $client = new Client(env('FACE_SERVER_KEY1', ""), env('FACE_SERVER_LOCATION', ""));
-        $person = $client->personGroup('ai')->person()->create(new Person(null, $user->name));
+        $client = new Client("6dc614d04b9c48079b19318c647e733f", "japaneast");
+        $person = $client->personGroup('ai')->person()->create(new Person(null, $user->studentid));
         $user->person_id = $person->getPersonId();
         $user->save();
     }

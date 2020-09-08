@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttendRecord extends Model
 {
+    protected $table = "attendrecords";
+
     public function users(){
         return $this->hasMany(User::class);
     }
