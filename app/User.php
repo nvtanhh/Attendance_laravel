@@ -28,6 +28,8 @@ class User extends Authenticatable implements Jsonable
     protected $hidden = [
         'password','remember_token',
     ];
+
+
     public function groups(){
         return $this->belongsToMany(Group::class,'user_group');
     }

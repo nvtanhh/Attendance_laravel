@@ -28,6 +28,7 @@ class HandleStudent extends controller
                 'email' => $request->email,
                 'active' => 1
             ]);
+            
             // add new row pivot
             $user->groups()->attach($groupid);
             // send email invite sutdent

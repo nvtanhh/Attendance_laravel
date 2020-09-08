@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\AttendRecord;
+use App\Group;
 use App\Http\Controllers\Controller;
 use App\Jobs\UploadAvatarStudentToServer;
 use App\User;
@@ -18,8 +19,7 @@ class StudentAttendance extends Controller
     {
         $user = Auth::user();
         $user = User::where('id', $user->id)->first();
-        $classs[] = $user->groups;
-        return response()->json($classs);
+        return response()->json($user->groups);
     }
 
     //them sinh vien vao danh sach addface
