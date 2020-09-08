@@ -32,7 +32,7 @@ class Group extends Model implements Jsonable
 
     public function attendRecord()
     {
-        return $this->belongsTo(AttendRecord::class);
+        return $this->belongsTo(Attendrecord::class);
     }
 
 }

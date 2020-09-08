@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class UserUploadImage extends Controller
 {
@@ -18,10 +17,11 @@ class UserUploadImage extends Controller
         if ($user->studentid == null) {
             return response()->json(['status' => 'false', 'mes' => 'StudentId not found']);
         }
-        $folder = storage_path('app/public/' . $user->studentid . '/');
+        $folder = public_path('/storage/' . $user->studentid . '/');
         //tao folder neu chua ton tai
-        if (!Storage::exists($folder)) {
-            Storage::makeDirectory($folder, 0775, true, true);
+//        return $folder;
+        if (!File::exists($folder)) {
+            File::makeDirectory($folder, 0775);
         }
         //
         if (!empty($files)) {
@@ -37,7 +37,7 @@ class UserUploadImage extends Controller
     public function deleteAll()
     {
         $user = Auth::user();
-        File::deleteDirectories(storage_path('app/public/' . $user->studentid . '/'));
+        File::deleteDirectories(public_path('/storage/' . $user->studentid . '/'));
         return response()->json(['status' => 'true', 'mes' => 'Upload Done']);
     }
 }

@@ -40,7 +40,7 @@ class UploadAvatarStudentToServer implements ShouldQueue
         if ($user==null) return "null";
         if($user->is_trained !='1') return "-1";
 
-        $folder = storage_path('app/public/' . $user->studentid . '/');
+        $folder = public_path('/storage/' . $user->studentid . '/');;
         $client = new Client();
         $url = "https://japaneast.api.cognitive.microsoft.com/face/v1.0/persongroups/ai/persons/"
             . $user->person_id . "/persistedFaces?detectionModel=detection_01";
