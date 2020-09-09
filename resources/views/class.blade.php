@@ -133,7 +133,7 @@
                                             {{$group[0]->name}}
                                         </div>
                                         <div class="">
-                                            {{$group[0]->myowner->name}}
+                                            {{$group[0]->groupOwner->name}}
                                         </div>
                                     </div>
                                 </div>

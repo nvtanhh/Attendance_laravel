@@ -32,5 +32,6 @@ Route::group([
         Route::get('train','Api\StudentAttendance@train');
         Route::get('sttrain','Api\StudentAttendance@statusTrain');
 
+
     });
 });
