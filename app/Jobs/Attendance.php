@@ -67,7 +67,7 @@ class Attendance implements ShouldQueue
                     $jsonde = $jsonde[0]->{'personId'};
                     error_log($personId);
                     error_log($jsonde);
-                    // dang personid in db thi change record =1 da diem danh
+                    // dang personid in db thi change record = 1 da diem danh
                     if($jsonde==$personId){
                         $atendance->status=1;
                         $atendance->save();

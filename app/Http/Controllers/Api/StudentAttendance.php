@@ -44,7 +44,7 @@ class StudentAttendance extends Controller
         if ($user->studentid == null) {
             return response()->json(['status' => 'false', 'mes' => 'StudentId not found']);
         }
-        // tao record diem danh status =0 chua dc diem danh
+        // tao record diem danh status = 0 chua dc diem danh
         $attendrecord = \App\Attendance::create([
             'user_id'=>$user->id,
             'group_id'=>$groupid
