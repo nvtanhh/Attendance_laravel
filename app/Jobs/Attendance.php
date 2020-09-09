@@ -60,6 +60,7 @@ class Attendance implements ShouldQueue
                     // reconigh face
                     $client = new \Subsan\MicrosoftCognitiveFace\Client("6dc614d04b9c48079b19318c647e733f", "japaneast");
                     $response = $client->face()->identify([$faceId],'ai');
+                    error_log(json_encode($response));
                     $jsonde = json_decode(json_encode($response));
                     // get candidates chua personid
                     $jsonde = $jsonde[0]->{'candidates'};
@@ -79,8 +80,7 @@ class Attendance implements ShouldQueue
                        return 0;
                     }
                 } catch (JsonException $s) {
-
-                    return $s;
+                    continue;
                 }
 
             }
