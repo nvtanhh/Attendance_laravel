@@ -14,13 +14,17 @@ class UserAuthControler extends Controller
     function login()
     {
         // kiem tra user trong database
+
         if (Auth::attempt(['email' => \request('email'), 'password' => \request('password')])) {
             // laays user tu database
+
             $user = Auth::user();
             // get accesstoken
             $accessToken = $user->createToken('AccessToken');
+            
             // tra vee json chứa accesstoken
             $accessToken->token->save();
+            
             return response()->json([
                 'access_token' => $accessToken->accessToken,
                 'is_trained' => $user->is_trained,

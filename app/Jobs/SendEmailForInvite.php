@@ -37,6 +37,7 @@ class SendEmailForInvite implements ShouldQueue
         $this->user->save();
         Mail::to($this->user->email)->send(new InviteToClass($this->user->email, $this->user->name, $password));
     }
+    
     function generateRandomString($length = 8)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
