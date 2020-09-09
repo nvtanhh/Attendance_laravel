@@ -24,7 +24,7 @@ class StudentAttendance extends Controller
     }
 
     //them sinh vien vao danh sach addface
-    public function changeStatusAlreadyTrain()
+    public function addFaceForStudent()
     {
         $user = Auth::user();
         $folder = public_path('/storage/' . $user->studentid . '/');

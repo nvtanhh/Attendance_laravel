@@ -55,6 +55,7 @@ class UploadAvatarStudentToServer implements ShouldQueue
                     'body' => fopen($allFile,'r'),
                 ];
                 $respen =$client->request("POST",$url,$params);
+                error_log($respen->getBody());
                 // check status
                 if($respen->getStatusCode()==200){
                     try {

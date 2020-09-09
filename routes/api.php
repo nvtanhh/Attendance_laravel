@@ -25,9 +25,12 @@ Route::group([
         Route::get('logout', 'Api\UserAuthControler@logout');
         Route::get('user', 'Api\UserAuthControler@user');
         Route::post('uploadimage','Api\UserUploadImage@storeImage');
+        Route::get('alreadytrain', 'Api\UserUploadImage@changeStatusIsTrain');
+        Route::get('addface', 'Api\StudentAttendance@addFaceForStudent');
         Route::get('getlistclass','Api\StudentAttendance@getListClass');
         Route::post('attendance','Api\StudentAttendance@attendance');
         Route::get('train','Api\StudentAttendance@train');
         Route::get('sttrain','Api\StudentAttendance@statusTrain');
+
     });
 });

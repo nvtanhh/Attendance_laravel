@@ -33,7 +33,11 @@ class UserUploadImage extends Controller
         }
         return response()->json(['status' => 'false', 'mes' => 'File not found']);
     }
-
+    public  function changeStatusIsTrain(){
+        $user = Auth::user();
+        $user->is_trained='1';
+        $user->save();
+    }
     public function deleteAll()
     {
         $user = Auth::user();
