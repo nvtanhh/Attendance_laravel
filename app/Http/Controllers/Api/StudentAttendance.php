@@ -34,8 +34,9 @@ class StudentAttendance extends Controller
     }
     //
 //    public function
-    public function attendance(Request $request){
-        $groupid= $request->groupid;
+    public function attendance(Request $request)
+    {
+        $groupid = $request->groupid;
 //        $time = $request->time;
 //        $longtitude = $request->longtitude;
 //        $latitude =$request->latitude;
@@ -46,8 +47,8 @@ class StudentAttendance extends Controller
         }
         // tao record diem danh status = 0 chua dc diem danh
         $attendrecord = \App\Attendance::create([
-            'user_id'=>$user->id,
-            'group_id'=>$groupid
+            'user_id' => $user->id,
+            'group_id' => $groupid
         ]);
         // folder chua
         $folder = public_path('/storage/' . $user->studentid . '/');
@@ -56,7 +57,7 @@ class StudentAttendance extends Controller
         if (!File::exists($folder)) {
             File::makeDirectory($folder, 0775);
         }
-        $folder = $folder.'avatar/';        //
+        $folder = $folder . 'avatar/';        //
         //tao folder neu chua ton tai
         if (!File::exists($folder)) {
             File::makeDirectory($folder, 0775);
@@ -66,25 +67,42 @@ class StudentAttendance extends Controller
             // luu file vao folder
             $avatar->move($folder, $avatar->getClientOriginalName() . $avatar->getExtension());
             Attendance::dispatch($attendrecord->id)->onQueue('addface');
-            return response()->json(['status'=>'processing']);
-        }else{
-            return  response()->json(['status'=>'fail','mes'=>'Image not found']);
+            return response()->json(['status' => 'processing']);
+        } else {
+            return response()->json(['status' => 'fail', 'mes' => 'Image not found']);
         }
     }
-    public function train(){
+
+    public function train()
+    {
         $user = Auth::user();
-        if($user->group!=1){
-            return response()->json(['status'=>'You not have permission']);
+        if ($user->group != 1) {
+            return response()->json(['status' => 'You not have permission']);
         }
         $client = new Client("6dc614d04b9c48079b19318c647e733f", "japaneast");
         $client->personGroup('ai')->train();
     }
-    public function statusTrain(){
+
+    public function statusTrain()
+    {
         $user = Auth::user();
-        if($user->group!=1){
-            return response()->json(['status'=>'You not have permission']);
+        if ($user->group != 1) {
+            return response()->json(['status' => 'You not have permission']);
         }
         $client = new Client("6dc614d04b9c48079b19318c647e733f", "japaneast");
-        return response( )->json($client->personGroup('ai')->getTrainStatus());
+        return response()->json($client->personGroup('ai')->getTrainStatus());
+    }
+
+    public function getStatusAtendace()
+    {
+        $groupid= \request('groupid');
+        $user = Auth::user();
+        $atendance = \App\Attendance::where('user_id',$user->id)->where('group_id',$groupid)->first();
+        if($atendance->status==1){
+            return response()->json(['status'=>'true']);
+        }else{
+            return response()->json(['status'=>'false']);
+        }
+
     }
 }

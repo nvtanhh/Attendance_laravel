@@ -31,7 +31,7 @@ Route::group([
         Route::post('attendance','Api\StudentAttendance@attendance');
         Route::get('train','Api\StudentAttendance@train');
         Route::get('sttrain','Api\StudentAttendance@statusTrain');
-
+        Route::get('satusattendance','Api\StudentAttendance@getStatusAtendace');
 
     });
 });
